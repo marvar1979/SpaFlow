@@ -1,0 +1,8 @@
+@page
+@model SpaFlow.Web.Pages.Employees.IndexModel
+@{ ViewData["Title"] = "Equipo"; }
+<div class="page-heading"><div><span class="eyebrow">PERSONAL</span><h1>Equipo</h1></div></div>
+<div class="card-grid">
+@foreach(var e in Model.Employees){<article class="profile-card"><div class="avatar">@e.FullName.Substring(0,1).ToUpper()</div><div><h3>@e.FullName</h3><p>@(e.Specialty ?? "Profesional")</p><small>@e.Branch.Name · Comisión @e.CommissionPercent%</small></div></article>}
+@if(Model.Employees.Count==0){<section class="card"><p class="muted">Aún no se registraron profesionales.</p></section>}
+</div>

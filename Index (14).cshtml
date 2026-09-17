@@ -1,0 +1,10 @@
+@page
+@model SpaFlow.Web.Pages.Clients.IndexModel
+@{
+    ViewData["Title"] = "Clientes";
+}
+<div class="page-heading"><div><span class="eyebrow">CRM</span><h1>Clientes</h1></div><a class="btn primary" asp-page="Create">+ Nuevo cliente</a></div>
+<form method="get" class="filter-bar"><input asp-for="Search" placeholder="Buscar por nombre, teléfono o correo"/><button class="btn">Buscar</button></form>
+<section class="card"><div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Puntos</th><th>Última visita</th></tr></thead><tbody>
+@foreach (var c in Model.Clients) { <tr><td><strong>@c.FullName</strong></td><td>@c.Phone</td><td>@c.Email</td><td>@c.LoyaltyPoints</td><td>@(c.LastVisitAtUtc?.ToLocalTime().ToString("dd/MM/yyyy") ?? "—")</td></tr> }
+</tbody></table></div></section>

@@ -1,0 +1,4 @@
+@page
+@model SpaFlow.Web.Pages.Booking.SuccessModel
+@{ ViewData["Title"] = "Reserva recibida"; }
+<div class="landing"><section class="landing-card"><span class="eyebrow">SOLICITUD RECIBIDA</span><h1>Tu reserva fue registrada.</h1><p>Código de reserva: <strong>#@Model.Id</strong>. El SPA puede confirmar el horario por el medio de contacto proporcionado.</p><a class="btn primary" asp-page="Index">Crear otra reserva</a></section></div>

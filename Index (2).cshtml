@@ -1,0 +1,51 @@
+@page
+@model SpaFlow.Web.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Resumen";
+}
+<div class="page-heading">
+    <div><span class="eyebrow">OPERACIÓN</span><h1>Resumen del día</h1></div>
+    <a class="btn primary" asp-page="/Appointments/Create">+ Nueva reserva</a>
+</div>
+
+<div class="metric-grid">
+    <div class="metric-card"><span>Citas de hoy</span><strong>@Model.TodayAppointments</strong></div>
+    <div class="metric-card"><span>Confirmadas</span><strong>@Model.ConfirmedAppointments</strong></div>
+    <div class="metric-card"><span>Clientes activos</span><strong>@Model.ActiveClients</strong></div>
+    <div class="metric-card"><span>Ingresos hoy</span><strong>Bs @Model.TodayRevenue.ToString("N2")</strong></div>
+</div>
+
+<div class="grid-2">
+    <section class="card">
+        <div class="card-title"><h2>Próximas citas</h2><a asp-page="/Appointments/Index">Ver agenda</a></div>
+        @if (Model.Upcoming.Count == 0)
+        {
+            <p class="muted">No hay reservas próximas.</p>
+        }
+        else
+        {
+            <div class="table-wrap"><table><thead><tr><th>Hora</th><th>Cliente</th><th>Profesional</th><th>Estado</th></tr></thead><tbody>
+            @foreach (var item in Model.Upcoming)
+            {
+                <tr><td>@item.StartAt.ToString("HH:mm")</td><td>@item.Client.FullName</td><td>@item.Employee.FullName</td><td><span class="badge">@item.Status</span></td></tr>
+            }
+            </tbody></table></div>
+        }
+    </section>
+    <section class="card">
+        <div class="card-title"><h2>Alertas de inventario</h2><a asp-page="/Inventory/Index">Inventario</a></div>
+        @if (Model.LowStock.Count == 0)
+        {
+            <p class="muted">Sin productos con stock crítico.</p>
+        }
+        else
+        {
+            <ul class="clean-list">
+            @foreach (var product in Model.LowStock)
+            {
+                <li><strong>@product.Name</strong><span>@product.Stock / mínimo @product.MinimumStock</span></li>
+            }
+            </ul>
+        }
+    </section>
+</div>

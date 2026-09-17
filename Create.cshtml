@@ -1,0 +1,22 @@
+@page
+@model SpaFlow.Web.Pages.Appointments.CreateModel
+@{
+    ViewData["Title"] = "Nueva reserva";
+}
+<div class="page-heading"><div><span class="eyebrow">AGENDA</span><h1>Nueva reserva</h1></div><a class="btn" asp-page="Index">Volver</a></div>
+<section class="card form-card">
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-grid">
+        <label>Cliente<select asp-for="Input.ClientId" asp-items="Model.ClientOptions"></select></label>
+        <label>Servicio<select asp-for="Input.ServiceId" asp-items="Model.ServiceOptions"></select></label>
+        <label>Profesional<select asp-for="Input.EmployeeId" asp-items="Model.EmployeeOptions"></select></label>
+        <label>Cabina<select asp-for="Input.RoomId" asp-items="Model.RoomOptions"><option value="">Sin cabina</option></select></label>
+        <label>Fecha y hora<input asp-for="Input.StartAt" type="datetime-local" /></label>
+        <label>Origen<select asp-for="Input.Source" asp-items="Html.GetEnumSelectList<AppointmentSource>()"></select></label>
+    </div>
+    <label>Notas<textarea asp-for="Input.Notes" rows="3"></textarea></label>
+    <div class="actions"><button class="btn primary" type="submit">Guardar reserva</button></div>
+</form>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

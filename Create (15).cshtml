@@ -1,0 +1,19 @@
+@page
+@model SpaFlow.Web.Pages.Clients.CreateModel
+@{
+    ViewData["Title"] = "Nuevo cliente";
+}
+<div class="page-heading"><div><span class="eyebrow">CRM</span><h1>Nuevo cliente</h1></div><a class="btn" asp-page="Index">Volver</a></div>
+<section class="card form-card"><form method="post"><div asp-validation-summary="ModelOnly" class="validation"></div>
+<div class="form-grid">
+<label>Nombre completo<input asp-for="Client.FullName"/></label>
+<label>Teléfono<input asp-for="Client.Phone"/></label>
+<label>Correo<input asp-for="Client.Email"/></label>
+<label>Fecha de nacimiento<input asp-for="Client.BirthDate" type="date"/></label>
+</div>
+<label>Alergias / sensibilidades<textarea asp-for="Client.Allergies" rows="2"></textarea></label>
+<label>Contraindicaciones informadas<textarea asp-for="Client.Contraindications" rows="2"></textarea></label>
+<label>Notas<textarea asp-for="Client.Notes" rows="3"></textarea></label>
+<div class="check-row"><label><input asp-for="Client.TreatmentConsent"/> Consentimiento para registrar información del tratamiento</label><label><input asp-for="Client.MarketingConsent"/> Acepta comunicaciones comerciales</label></div>
+<button class="btn primary" type="submit">Guardar cliente</button>
+</form></section>

@@ -1,0 +1,26 @@
+@page
+@model SpaFlow.Web.Pages.Booking.IndexModel
+@{
+    ViewData["Title"] = "Reserva online";
+}
+<div class="landing booking-landing">
+<section class="landing-card booking-card">
+    <span class="eyebrow">RESERVA ONLINE</span>
+    <h1>Agenda tu momento de bienestar</h1>
+    <p>Completa tus datos y selecciona el tratamiento y horario deseado. La reserva quedará pendiente de confirmación.</p>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+        <div class="form-grid">
+            <label>Nombre completo<input asp-for="Input.FullName" /></label>
+            <label>Teléfono / WhatsApp<input asp-for="Input.Phone" /></label>
+            <label>Correo<input asp-for="Input.Email" /></label>
+            <label>Servicio<select asp-for="Input.ServiceId" asp-items="Model.ServiceOptions"></select></label>
+            <label>Profesional<select asp-for="Input.EmployeeId" asp-items="Model.EmployeeOptions"></select></label>
+            <label>Fecha y hora<input asp-for="Input.StartAt" type="datetime-local" /></label>
+        </div>
+        <label>Comentario opcional<textarea asp-for="Input.Notes" rows="3"></textarea></label>
+        <div class="check-row"><label><input asp-for="Input.ContactConsent" /> Autorizo que me contacten para confirmar esta reserva.</label></div>
+        <button class="btn primary" type="submit">Solicitar reserva</button>
+    </form>
+</section>
+</div>

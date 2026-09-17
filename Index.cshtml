@@ -1,0 +1,7 @@
+@page
+@model SpaFlow.Web.Pages.Inventory.IndexModel
+@{ ViewData["Title"] = "Inventario"; }
+<div class="page-heading"><div><span class="eyebrow">STOCK</span><h1>Inventario</h1></div></div>
+<section class="card"><div class="table-wrap"><table><thead><tr><th>Producto</th><th>SKU</th><th>Categoría</th><th>Stock</th><th>Mínimo</th><th>Precio venta</th></tr></thead><tbody>
+@foreach(var p in Model.Products){<tr class="@(p.Stock <= p.MinimumStock ? "warning-row" : "")"><td><strong>@p.Name</strong></td><td>@p.Sku</td><td>@p.Category.Name</td><td>@p.Stock</td><td>@p.MinimumStock</td><td>Bs @p.SalePrice.ToString("N2")</td></tr>}
+</tbody></table></div></section>

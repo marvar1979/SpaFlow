@@ -1,0 +1,7 @@
+@page
+@model SpaFlow.Web.Pages.Reports.IndexModel
+@{ ViewData["Title"] = "Reportes"; }
+<div class="page-heading"><div><span class="eyebrow">ANÁLISIS</span><h1>Reportes</h1></div></div>
+<form method="get" class="filter-bar"><label>Desde<input type="date" asp-for="From"/></label><label>Hasta<input type="date" asp-for="To"/></label><button class="btn">Actualizar</button></form>
+<div class="metric-grid"><div class="metric-card"><span>Ingresos</span><strong>Bs @Model.Revenue.ToString("N2")</strong></div><div class="metric-card"><span>Reservas completadas</span><strong>@Model.CompletedAppointments</strong></div><div class="metric-card"><span>Ticket promedio</span><strong>Bs @Model.AverageTicket.ToString("N2")</strong></div><div class="metric-card"><span>Nuevos clientes</span><strong>@Model.NewClients</strong></div></div>
+<section class="card"><div class="card-title"><h2>Servicios más reservados</h2></div><div class="table-wrap"><table><thead><tr><th>Servicio</th><th>Cantidad</th><th>Ingreso estimado</th></tr></thead><tbody>@foreach(var x in Model.TopServices){<tr><td>@x.Name</td><td>@x.Quantity</td><td>Bs @x.Revenue.ToString("N2")</td></tr>}</tbody></table></div></section>

@@ -1,0 +1,32 @@
+@page
+@model SpaFlow.Web.Pages.Appointments.IndexModel
+@{
+    ViewData["Title"] = "Agenda";
+}
+<div class="page-heading">
+    <div><span class="eyebrow">RESERVAS</span><h1>Agenda</h1></div>
+    <a class="btn primary" asp-page="Create">+ Nueva reserva</a>
+</div>
+<form method="get" class="filter-bar">
+    <label>Fecha <input type="date" asp-for="Date" /></label>
+    <button class="btn" type="submit">Filtrar</button>
+</form>
+<section class="card">
+<div class="table-wrap"><table>
+<thead><tr><th>Hora</th><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Cabina</th><th>Estado</th><th>Total</th></tr></thead>
+<tbody>
+@foreach (var a in Model.Appointments)
+{
+    <tr>
+        <td><strong>@a.StartAt.ToString("HH:mm")</strong><br/><small>@a.EndAt.ToString("HH:mm")</small></td>
+        <td>@a.Client.FullName<br/><small>@a.Client.Phone</small></td>
+        <td>@string.Join(", ", a.Items.Select(x => x.SpaService.Name))</td>
+        <td>@a.Employee.FullName</td>
+        <td>@(a.Room?.Name ?? "—")</td>
+        <td><span class="badge">@a.Status</span></td>
+        <td>Bs @a.Total.ToString("N2")</td>
+    </tr>
+}
+</tbody></table></div>
+@if (Model.Appointments.Count == 0) { <p class="empty">No hay reservas para esta fecha.</p> }
+</section>

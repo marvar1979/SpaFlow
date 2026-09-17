@@ -1,0 +1,57 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SpaFlow</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" asp-page="/Dashboard/Index">SpaFlow</a>
+            <div class="brand-sub">Gestión integral para SPA</div>
+            <nav>
+                <a asp-page="/Dashboard/Index">Resumen</a>
+                <a asp-page="/Appointments/Index">Agenda</a>
+                <a asp-page="/Appointments/Create">Nueva reserva</a>
+                <a asp-page="/Clients/Index">Clientes</a>
+                <a asp-page="/Services/Index">Servicios</a>
+                <a asp-page="/Employees/Index">Equipo</a>
+                <a asp-page="/Inventory/Index">Inventario</a>
+                <a asp-page="/Reports/Index">Reportes</a>
+                @if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Manager))
+                {
+                    <a asp-page="/Settings/Index">Configuración</a>
+                }
+            </nav>
+            <form class="logout" asp-area="Identity" asp-page="/Account/Logout" method="post">
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <strong>@((await UserManager.GetUserAsync(User))?.FullName ?? User.Identity?.Name)</strong>
+                    <small>@DateTime.Now.ToString("dd/MM/yyyy")</small>
+                </div>
+            </header>
+            <section class="page-container">
+                @RenderBody()
+            </section>
+        </main>
+    </div>
+}
+else
+{
+    <main>@RenderBody()</main>
+}
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
